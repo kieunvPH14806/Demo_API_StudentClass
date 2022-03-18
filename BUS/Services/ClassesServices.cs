@@ -5,7 +5,7 @@ using Demo_API_StudentClass.Models;
 
 namespace Demo_API_StudentClass.BUS.Services;
 
-public class ClassServices
+public class ClassesServices
 {
 
     private readonly IStudentService _studentService;
@@ -16,7 +16,7 @@ public class ClassServices
     private List<StudentClass> _lstStudentClassesData;
     private List<Class> _lstClassData;
 
-    public ClassServices(IStudentService studentService, IClassService classService,
+    public ClassesServices(IStudentService studentService, IClassService classService,
         IStudentClassService studentClassService)
     {
         _studentService = studentService;
@@ -39,19 +39,16 @@ public class ClassServices
     public List<Classes> GetClassesList()
     {
         _lstClass = new List<Classes>();
-        var classTemp =
-            from _class in _lstClassData
-            join _studentClass in _lstStudentClassesData on _class.IdClass equals _studentClass.IdClass
-            join student in _lstStudentData on _studentClass.IdStudent equals student.IdStudent
-            select new
-            {
-                id = _class.IdClass,
-                NameClass = _class.NameClass,
-                Classroom = _class.Classroom
-            };
+        var classTemp = from _class in _lstClassData
+                        select new
+                        {
+                            id = _class.IdClass,
+                            NameClass = _class.NameClass,
+                            Classroom = _class.Classroom
+                        };
         foreach (var x in classTemp)
         {
-            Classes newClasses = new Classes(x.id,x.NameClass,x.Classroom);
+            Classes newClasses = new Classes(x.id, x.NameClass, x.Classroom);
             _lstClass.Add(newClasses);
         }
         return _lstClass;
@@ -93,7 +90,7 @@ public class ClassServices
     public List<Classes> AddClass(Classes newClass)
     {
         Class inputClass = new Class();
-        inputClass.IdClass = _lstClass.Max(c=>c.IdClass)+1;
+        inputClass.IdClass = _lstClass.Max(c => c.IdClass) + 1;
         inputClass.NameClass = newClass.NameClass;
         inputClass.Classroom = newClass.Classroom;
         _classService.Add(inputClass);
@@ -114,10 +111,10 @@ public class ClassServices
         return _lstClass;
     }
 
-    public List<Classes> Delete(Classes classDelete)
+    public List<Classes> Delete(string nameClass)
     {
         Class inputClass = new Class();
-        inputClass=_lstClassData[_lstClassData.FindIndex(c=>c.IdClass==classDelete.IdClass)];
+        inputClass = _lstClassData[_lstClassData.FindIndex(c => c.NameClass == nameClass)];
         _classService.Delete(inputClass);
         _classService.Save();
         GetClassesList();

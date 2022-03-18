@@ -9,14 +9,16 @@ namespace Demo_API_StudentClass.Controllers
     [ApiController]
     public class ClassesController : ControllerBase
     {
-        private readonly ClassServices _classServices;
+        private readonly ClassesServices _classServices;
         
 
-        public ClassesController(ClassServices classServices)
+        public ClassesController(ClassesServices classServices)
         {
             _classServices = classServices;
         }
 
+
+        // Danh Sách Lớp
         [HttpGet("Get")]
         public List<Classes> Get()
         {
@@ -29,7 +31,9 @@ namespace Demo_API_StudentClass.Controllers
                 return null;
             }
         }
-        [HttpGet("GetStudentInClass")]
+
+        //Lấy Danh Sach Sinh viên trong lớp 
+        [HttpGet("GetStudent")]
         public List<Students> GetStudent(string nameClass)
         {
             try
@@ -53,7 +57,7 @@ namespace Demo_API_StudentClass.Controllers
                 return null;
             }
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         public List<Classes> Edit(Classes newClass)
         {
             try
@@ -65,8 +69,8 @@ namespace Demo_API_StudentClass.Controllers
                 return null;
             }
         }
-        [HttpDelete("{id}")]
-        public List<Classes> Delete(Classes newClass)
+        [HttpDelete]
+        public List<Classes> Delete(string newClass)
         {
             try
             {

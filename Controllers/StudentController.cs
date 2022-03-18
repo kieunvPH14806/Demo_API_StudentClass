@@ -56,7 +56,7 @@ namespace Demo_API_StudentClass.Controllers
                 throw;
             }
         }
-        [HttpPut("Edit/{name}")]
+        [HttpPut("Edit")]
         public List<Students> Edit(Students inputStudents)
         {
             try
@@ -68,7 +68,7 @@ namespace Demo_API_StudentClass.Controllers
                 return null;
             }
         }
-        [HttpDelete("Delete/{name}")]
+        [HttpDelete("Delete")]
         public List<Students> Delete(Students inputStudents)
         {
             try

@@ -38,6 +38,7 @@ public class StudentsService
 
     public List<Students> GetStudentsList()
     {
+        GetData();
         _lstStudents = new List<Students>();
         var studentTemp =
             from student in _lstStudentData
