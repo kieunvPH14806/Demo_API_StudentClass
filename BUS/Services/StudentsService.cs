@@ -25,6 +25,11 @@ public class StudentsService
 
     }
 
+    public StudentsService()
+    {
+      
+    }
+
     public void GetData()
     {
         _lstStudentClassesData = new List<StudentClass>();
