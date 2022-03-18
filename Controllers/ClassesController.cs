@@ -1,6 +1,5 @@
 ﻿using Demo_API_StudentClass.BUS.Models;
 using Demo_API_StudentClass.BUS.Services;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,72 +7,70 @@ namespace Demo_API_StudentClass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class ClassesController : ControllerBase
     {
-        private readonly StudentsService _studentsService;
+        private readonly ClassServices _classServices;
+        
 
-        public StudentController(StudentsService studentsService)
+        public ClassesController(ClassServices classServices)
         {
-            _studentsService = studentsService;
+            _classServices = classServices;
         }
 
         [HttpGet("Get")]
-        public List<Students> Get()
+        public List<Classes> Get()
         {
             try
             {
-                return _studentsService.GetStudentsList();
+                return _classServices.GetClassesList();
             }
             catch (Exception e)
             {
                 return null;
             }
         }
-
-        [HttpGet("GetOne/{nameClass}")]
-        public List<Students> GetOne(string nameClass)
+        [HttpGet("GetStudentInClass")]
+        public List<Students> GetStudent(string nameClass)
         {
             try
             {
-                return _studentsService.GetStudentsClass(nameClass);
+                return _classServices.GetStudentsInClass(nameClass);
             }
             catch (Exception e)
             {
                 return null;
             }
         }
-
-        [HttpPost("Add")]
-        public List<Students> Add(Students inputStudents)
+        [HttpPost]
+        public List<Classes> GetStudent(Classes newClass)
         {
             try
             {
-                return _studentsService.AddStudent(inputStudents);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-        [HttpPut("Edit/{name}")]
-        public List<Students> Edit(Students inputStudents)
-        {
-            try
-            {
-                return _studentsService.EditStudent(inputStudents);
+                return _classServices.AddClass(newClass);
             }
             catch (Exception e)
             {
                 return null;
             }
         }
-        [HttpDelete("Delete/{name}")]
-        public List<Students> Delete(Students inputStudents)
+        [HttpPut("{id}")]
+        public List<Classes> Edit(Classes newClass)
         {
             try
             {
-                return _studentsService.DeleteStudent(inputStudents);
+                return _classServices.EditClass(newClass);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        [HttpDelete("{id}")]
+        public List<Classes> Delete(Classes newClass)
+        {
+            try
+            {
+                return _classServices.Delete(newClass);
             }
             catch (Exception e)
             {

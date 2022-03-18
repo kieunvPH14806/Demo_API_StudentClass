@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="BUS\Models\" />
-    <Folder Include="BUS\Services\" />
   </ItemGroup>
 
 </Project>

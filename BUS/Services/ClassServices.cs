@@ -5,7 +5,7 @@ using Demo_API_StudentClass.Models;
 
 namespace Demo_API_StudentClass.BUS.Services;
 
-public class ClassService
+public class ClassServices
 {
 
     private readonly IStudentService _studentService;
@@ -16,7 +16,7 @@ public class ClassService
     private List<StudentClass> _lstStudentClassesData;
     private List<Class> _lstClassData;
 
-    public ClassService(IStudentService studentService, IClassService classService,
+    public ClassServices(IStudentService studentService, IClassService classService,
         IStudentClassService studentClassService)
     {
         _studentService = studentService;
@@ -93,11 +93,34 @@ public class ClassService
     public List<Classes> AddClass(Classes newClass)
     {
         Class inputClass = new Class();
-        inputClass.IdClass = newClass.IdClass;
+        inputClass.IdClass = _lstClass.Max(c=>c.IdClass)+1;
         inputClass.NameClass = newClass.NameClass;
         inputClass.Classroom = newClass.Classroom;
+        _classService.Add(inputClass);
+        _classService.Save();
+        GetClassesList();
+        return _lstClass;
+    }
 
-        
+    public List<Classes> EditClass(Classes classEdited)
+    {
+        Class inputClass = new Class();
+        inputClass.IdClass = classEdited.IdClass;
+        inputClass.NameClass = classEdited.NameClass;
+        inputClass.Classroom = classEdited.Classroom;
+        _classService.Edit(inputClass);
+        _classService.Save();
+        GetClassesList();
+        return _lstClass;
+    }
+
+    public List<Classes> Delete(Classes classDelete)
+    {
+        Class inputClass = new Class();
+        inputClass=_lstClassData[_lstClassData.FindIndex(c=>c.IdClass==classDelete.IdClass)];
+        _classService.Delete(inputClass);
+        _classService.Save();
+        GetClassesList();
         return _lstClass;
     }
 }
