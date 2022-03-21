@@ -32,7 +32,7 @@ public class DbWebAPIContext : DbContext
         {
             entity.ToTable("Class");
             entity.HasKey(p => p.IdClass);
-            entity.Property(p => p.IdClass).ValueGeneratedNever();
+            entity.Property(p => p.IdClass).ValueGeneratedOnAdd();
         });
         modelBuilder.Entity<Student>(entity =>
         {

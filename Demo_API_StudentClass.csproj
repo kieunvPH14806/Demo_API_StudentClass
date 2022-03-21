@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BUS\Models\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

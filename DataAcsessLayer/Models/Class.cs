@@ -14,5 +14,5 @@ public class Class
     public string? Classroom { get; set; }
     public bool State { get; set; }
 
-    public ICollection<StudentClass> StudentsClasses { get; set; }
+    public ICollection<Student> StudentsClasses { get; set; }
 }

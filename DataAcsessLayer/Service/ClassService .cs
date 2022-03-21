@@ -5,7 +5,7 @@ using Demo_API_StudentClass.Models;
 
 namespace Demo_API_StudentClass.Data.ServiceModels;
 
-public class ClassService:IClassService
+public class ClassService : IClassService
 {
     private readonly DbWebAPIContext _dbContext;
 
@@ -18,31 +18,14 @@ public class ClassService:IClassService
         _dbContext = dbContext;
     }
 
-    public List<Class> GetList()
+    public IQueryable<Class> GetList()
     {
-
-        try
-        {
-            return _dbContext.Set<Class>().ToList();
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
+        return _dbContext.Classes;
     }
 
-    public string Add(Class @object)
+    public void Add(Class @object)
     {
-        @object.State = true;
-        try
-        {
-            _dbContext.Set<Class>().Add(@object);
-            return "successful";
-        }
-        catch (Exception e)
-        {
-            return e.Message;
-        }
+        _dbContext.Classes.Add(@object);
     }
 
     public string Edit(Class @object)
@@ -72,16 +55,8 @@ public class ClassService:IClassService
         }
     }
 
-    public string Save()
+    public void Save()
     {
-        try
-        {
-            _dbContext.SaveChanges();
-            return "successful";
-        }
-        catch (Exception e)
-        {
-            return e.Message;
-        }
+        _dbContext.SaveChanges();
     }
 }
